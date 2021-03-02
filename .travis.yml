@@ -13,6 +13,7 @@ script:
   - docker run -e CI=true prashanth1261/dockercomplex npm run test -- --coverage
 
 after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t prashanth1261/multi-client ./client
   - docker build -t prashanth1261/multi-nginx ./nginx
   - docker build -t prashanth1261/multi-server ./server
